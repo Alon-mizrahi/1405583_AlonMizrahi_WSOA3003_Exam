@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour
+public class TestBallContorl : MonoBehaviour
 {
-    /*
-     * NB!!!!!
-     Get the current mouse position with Input.mousePosition, then convert that position to world space using Camera.ScreenToWorldPoint. 
-    */
     Vector3 startPos;
     Vector3 endPos;
     Vector3 direction;
@@ -45,19 +41,17 @@ public class BallController : MonoBehaviour
             startPos.x = Input.mousePosition.x;
             startPos.y = 0;
             startPos.z = Input.mousePosition.y;
-            //AimLine();
+            AimLine();
         }
     }
 
-/*
-private void AimLine()
+    private void AimLine()
     {
-
         TrajectoryLine.transform.position = this.transform.position; //startpos
         TrajectoryLine.SetActive(true);
         CanAim = true;
     }
-*/
+    
 
 
 
@@ -69,14 +63,6 @@ private void AimLine()
 
         if (Input.GetMouseButtonUp(0))
         {
-            endPos.x = Input.mousePosition.x;
-            endPos.y = 0;
-            endPos.z = Input.mousePosition.y;
-
-            direction = startPos - endPos;
-
-            myRigidbody.isKinematic = false;
-
             dircX = direction.x * power;
             dircY = direction.y * power;
             dircZ = direction.z * power;
@@ -105,29 +91,66 @@ private void AimLine()
             {
                 dircZ = -maxPower;
             }
-            Debug.Log("force: " + dircX+", "+dircY + ", " +dircZ);
 
-        
+            Debug.Log("force: " + dircX + ", " + dircY + ", " + dircZ);
+
+
             myRigidbody.AddForce(dircX, dircY, dircZ);
 
             TrajectoryLine.SetActive(false);
             CanAim = false;
         }
-        
+
     }
 
-
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (CanAim == true)
         {
+            //Mouse inputs axis: X,Y
+            //Must convert to axis: X,Z for ball axis
+            endPos.x = Input.mousePosition.x;
+            endPos.y = 0;
+            endPos.z = Input.mousePosition.y;
+
+            direction = startPos - endPos;
+
+            myRigidbody.isKinematic = false;
+
+            /*
+            dircX = direction.x * power;
+            dircY = direction.y * power;
+            dircZ = direction.z * power;
             
-            //TrajectoryLine.transform.position.x = this.transform.position.x - Input.mousePosition.x;
-            //TrajectoryLine.transform.position.z = gameObject.transform.position.z - Input.mousePosition.y;
-            //TrajectoryLine.transform.position.y = 0;
-        }
+            if (direction.x * power > maxPower)
+            {
+                dircX = maxPower;
+            }
+            if (direction.y * power > maxPower)
+            {
+                dircY = maxPower;
+            }
+            if (direction.z * power > maxPower)
+            {
+                dircZ = maxPower;
+            }
+            if (direction.x * power < -maxPower)
+            {
+                dircX = -maxPower;
+            }
+            if (direction.y * power < -maxPower)
+            {
+                dircY = -maxPower;
+            }
+            if (direction.z * power < -maxPower)
+            {
+                dircZ = -maxPower;
+            }
+            */
+
+            TrajectoryLine.transform.position = new Vector3(startPos.x - endPos.x, startPos.y - endPos.y, startPos.z - endPos.z);
+
+        } 
     }
-
-
-
 }
