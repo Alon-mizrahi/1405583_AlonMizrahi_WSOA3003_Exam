@@ -18,26 +18,67 @@ public class DataDesingHandler : MonoBehaviour
     public float BallStaticFriction;
     public float BallBounciness;
 
+    //public float LrLength;
+    public float LrMaxLength;
+    public float LrScale;
+
+    GameObject TargetBall;
+    GameObject PowerBall;
+  
+
     // Start is called before the first frame update
     void Start()
     {
-        //TargetBall
-        GameObject.FindGameObjectWithTag("TargetBall").GetComponent<Rigidbody>().mass = BallMass;
-        BallPhysicsMat = GameObject.FindGameObjectWithTag("TargetBall").GetComponent<SphereCollider>().material;
-        BallPhysicsMat.dynamicFriction = BallDynamicFriction;
-        BallPhysicsMat.bounciness = BallBounciness;
-        BallPhysicsMat.staticFriction = BallStaticFriction;
-        //PowerBall
-
-
         //BasicLevelElements
-
-
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+
+
+//TargetBall Data Update
+    public void UpdateTargetData()
     {
+        Debug.Log("Start function called when instantiated");
+        
+        TargetBall = GameObject.FindGameObjectWithTag("TargetBall");
+
+        TargetBall.GetComponent<Rigidbody>().mass = BallMass;
+        TargetBall.GetComponent<SphereCollider>().material.dynamicFriction = BallDynamicFriction;
+        TargetBall.GetComponent<SphereCollider>().material.staticFriction = BallStaticFriction;
+        TargetBall.GetComponent<SphereCollider>().material.bounciness = BallBounciness;
+
+        //Power
+        TargetBall.GetComponent<BallController>().power = ShootPower;
+        TargetBall.GetComponent<BallController>().maxPower = MaxPower;
+
+        //Line renderer
+        TargetBall.GetComponent<BallController>().LrMaxLength = LrMaxLength;
+        TargetBall.GetComponent<BallController>().LrScale = LrScale;
+    }
+
+    //PowerBall Data Update
+    public void UpdatePowerData()
+    {
+        Debug.Log("Start function called when instantiated");
+
+        PowerBall = GameObject.FindGameObjectWithTag("PowerBall");
+
+        PowerBall.GetComponent<Rigidbody>().mass = BallMass;
+        PowerBall.GetComponent<SphereCollider>().material.dynamicFriction = BallDynamicFriction;
+        PowerBall.GetComponent<SphereCollider>().material.staticFriction = BallStaticFriction;
+        PowerBall.GetComponent<SphereCollider>().material.bounciness = BallBounciness;
+
+        //Power
+        PowerBall.GetComponent<BallController>().power = ShootPower;
+        PowerBall.GetComponent<BallController>().maxPower = MaxPower;
+
+        //Line renderer
+        PowerBall.GetComponent<BallController>().LrMaxLength = LrMaxLength;
+        PowerBall.GetComponent<BallController>().LrScale = LrScale;
 
     }
+
+
+
 }

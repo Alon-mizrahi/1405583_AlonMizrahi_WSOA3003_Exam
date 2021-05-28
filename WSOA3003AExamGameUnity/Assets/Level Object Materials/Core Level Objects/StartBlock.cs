@@ -6,6 +6,7 @@ public class StartBlock : MonoBehaviour
 {
 
     public GameObject TargetBall;
+    public GameObject PowerBall;
     GameManager GM;
 
     Vector3 PlacementPos;
@@ -17,6 +18,13 @@ public class StartBlock : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
+    private void OnMouseDown()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            PlaceBall();
+        }
+    }
 
     void PlaceBall()
     {
@@ -30,26 +38,16 @@ public class StartBlock : MonoBehaviour
         Debug.Log("mousePosX: " + PlacementPos.x + " mousePosY: " + PlacementPos.y + " mousePosZ: " + PlacementPos.z);
         Debug.Log("StartBlockPosX: " + this.transform.position.x + " StartBlockPosY: " + this.transform.position.y + " StartBlockPosZ: " + this.transform.position.z);
 
-        Instantiate(TargetBall, PlacementPos, Quaternion.identity);
-    }
-
-    private void OnMouseDown()
-    {
-        if(Input.GetMouseButtonDown(0) &&  GM.state == STATE.START )
+        if(GM.state == STATE.PLACETARGETBALL)
         {
-            PlaceBall();
-            GM.state = STATE.CANSHOOT;
+            Instantiate(TargetBall, PlacementPos, Quaternion.identity);
+            GM.state = STATE.SHOOTTARGETBALL;
+        }
+        if(GM.state == STATE.PLACEPOWERBALL)
+        {
+            Instantiate(PowerBall, PlacementPos, Quaternion.identity);
+            GM.state = STATE.CANSHOOTPOWERBALL;
         }
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-
 
 }
