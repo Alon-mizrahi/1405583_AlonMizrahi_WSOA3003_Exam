@@ -13,6 +13,8 @@ public class DataDesingHandler : MonoBehaviour
     public float ShootPower;
     public float MaxPower;
     public float BallMass;
+    public float BallDrag;
+    public float BallAngularDrag;
     PhysicMaterial BallPhysicsMat;
     public float BallDynamicFriction;
     public float BallStaticFriction;
@@ -48,6 +50,9 @@ public class DataDesingHandler : MonoBehaviour
         TargetBall.GetComponent<SphereCollider>().material.staticFriction = BallStaticFriction;
         TargetBall.GetComponent<SphereCollider>().material.bounciness = BallBounciness;
 
+        TargetBall.GetComponent<Rigidbody>().drag = BallDrag;
+        TargetBall.GetComponent<Rigidbody>().angularDrag = BallAngularDrag;
+
         //Power
         TargetBall.GetComponent<BallController>().power = ShootPower;
         TargetBall.GetComponent<BallController>().maxPower = MaxPower;
@@ -68,6 +73,9 @@ public class DataDesingHandler : MonoBehaviour
         PowerBall.GetComponent<SphereCollider>().material.dynamicFriction = BallDynamicFriction;
         PowerBall.GetComponent<SphereCollider>().material.staticFriction = BallStaticFriction;
         PowerBall.GetComponent<SphereCollider>().material.bounciness = BallBounciness;
+
+        PowerBall.GetComponent<Rigidbody>().drag = BallDrag;
+        PowerBall.GetComponent<Rigidbody>().angularDrag = BallAngularDrag;
 
         //Power
         PowerBall.GetComponent<BallController>().power = ShootPower;

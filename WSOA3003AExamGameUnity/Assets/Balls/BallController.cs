@@ -8,6 +8,7 @@ public class BallController : MonoBehaviour
     /// Notes:
     /// still need to do drag and shoot not point and shoot. ie invert axes of trline and direction to shoot. 
     /// also need to do scaling of trline
+    /// Friction should use drag and angular drag
     /// </summary>
 
 
@@ -26,12 +27,12 @@ public class BallController : MonoBehaviour
 
     public DataDesingHandler DataHandler;
     GameManager GM;
-    STATE PreviousSTATE;
+    public STATE PreviousSTATE;
     public float power;
     public float maxPower;
 
     bool ClickedToShoot=false;
-
+    public bool isOnStartBlock;
     Vector3 NotMoving = new Vector3(0, 0, 0);
 
     private void Start()
@@ -48,7 +49,7 @@ public class BallController : MonoBehaviour
         if(gameObject.tag == "PowerBall") {DataHandler.UpdatePowerData(); }
     }
 
-
+    //clicked ball
     private void OnMouseDown()
     {
         if (Input.GetMouseButtonDown(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag =="TargetBall" && Rb.velocity == NotMoving)
@@ -74,6 +75,7 @@ public class BallController : MonoBehaviour
         }
     }
 
+    //mouse up -> apply force based of of mouse up mouse pos
     private void OnMouseUp()
     {
         if (Input.GetMouseButtonUp(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity == NotMoving)
@@ -189,17 +191,29 @@ public class BallController : MonoBehaviour
 
         }
 
+        
+        
 
-        //Ball rolling state. so that dont make any other moves while a shot is happening
-        //need to emend to include state after a set shot
-        //can this be used for power ball??
-        //if (PreviousSTATE != STATE.START && Rb.velocity != NotMoving)
+        if (GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity == NotMoving && isOnStartBlock ==false)
+        {
+            Debug.Log("TARGET BALL STATE CHANGE SHOULD NOW CHANGE TO CAN PLACE POWERBALL");
+            GM.state = STATE.PLACEPOWERBALL;
+        }
+
+
+        //if (GM.state != STATE.CANSHOOTPOWERBALL & gameObject.tag == "PowerBall" && Rb.velocity == NotMoving && isOnStartBlock ==true)
         //{
-        //    GM.state = STATE.BALLROLLING;
+        //            Debug.Log("STATE CHANGE AND CAN NOW SHOOT POWERBALL AGAIN");
         //}
 
     }
 
+
+    public void OnStartBlock(bool OnStartBlock)
+    {
+        isOnStartBlock = OnStartBlock;
+        Debug.Log("is on start block: " + isOnStartBlock);
+    }
 
 
 

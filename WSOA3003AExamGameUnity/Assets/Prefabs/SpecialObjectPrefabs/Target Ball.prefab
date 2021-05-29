@@ -230,5 +230,7 @@ MonoBehaviour:
   LrMaxLength: 0
   LrScale: 0
   DataHandler: {fileID: 0}
+  PreviousSTATE: 0
   power: 0
   maxPower: 0
+  isOnStartBlock: 1

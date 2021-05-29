@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 915902299499350340}
   - component: {fileID: 915902299499350341}
   - component: {fileID: 915902299499350338}
+  - component: {fileID: 2392342659628215432}
   m_Layer: 0
   m_Name: StartBlock
   m_TagString: Untagged
@@ -118,6 +119,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c1cb3c293ee4f469b6dbf9db190b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetBall: {fileID: 6221517825264418365, guid: 7cada001c60ddbe42834fd00d5c2eb12,
+  TargetBall: {fileID: 9078684510666560734, guid: 7cada001c60ddbe42834fd00d5c2eb12,
     type: 3}
-  PowerBall: {fileID: 0}
+  PowerBall: {fileID: 5769412386204977569, guid: 1ce0b79f818ab9144b95227f97794d73,
+    type: 3}
+--- !u!65 &2392342659628215432
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915902299499350339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.3892231, z: 0.5}
+  m_Center: {x: 0, y: 0.19461155, z: 0}

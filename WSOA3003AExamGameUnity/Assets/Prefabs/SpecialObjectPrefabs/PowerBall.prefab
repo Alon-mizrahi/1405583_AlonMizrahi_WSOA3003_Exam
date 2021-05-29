@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5769412386204977582}
   - component: {fileID: 5769412386204977583}
   - component: {fileID: 5769412386204977568}
+  - component: {fileID: 3889752719591423138}
   m_Layer: 0
   m_Name: PowerBall
   m_TagString: PowerBall
@@ -230,5 +231,20 @@ MonoBehaviour:
   LrMaxLength: 0
   LrScale: 0
   DataHandler: {fileID: 0}
+  PreviousSTATE: 0
   power: 0
   maxPower: 0
+  isOnStartBlock: 1
+--- !u!114 &3889752719591423138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769412386204977569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6964f06613da3af4e87dfe5594e22e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 0
