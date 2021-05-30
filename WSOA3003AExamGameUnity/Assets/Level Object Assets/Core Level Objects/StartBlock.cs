@@ -28,15 +28,15 @@ public class StartBlock : MonoBehaviour
 
     void PlaceBall()
     {
-        Debug.Log("clicked start block");
+        //Debug.Log("clicked start block");
 
         MousePos = Input.mousePosition;
         PlacementPos.x = Camera.main.ScreenToWorldPoint(MousePos).x;
         PlacementPos.y = this.transform.position.y + 1f;
         PlacementPos.z = Camera.main.ScreenToWorldPoint(MousePos).z;
 
-        Debug.Log("mousePosX: " + PlacementPos.x + " mousePosY: " + PlacementPos.y + " mousePosZ: " + PlacementPos.z);
-        Debug.Log("StartBlockPosX: " + this.transform.position.x + " StartBlockPosY: " + this.transform.position.y + " StartBlockPosZ: " + this.transform.position.z);
+        //Debug.Log("mousePosX: " + PlacementPos.x + " mousePosY: " + PlacementPos.y + " mousePosZ: " + PlacementPos.z);
+        //Debug.Log("StartBlockPosX: " + this.transform.position.x + " StartBlockPosY: " + this.transform.position.y + " StartBlockPosZ: " + this.transform.position.z);
 
         if(GM.state == STATE.PLACETARGETBALL)
         {

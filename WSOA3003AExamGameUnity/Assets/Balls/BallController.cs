@@ -31,9 +31,11 @@ public class BallController : MonoBehaviour
     public float power;
     public float maxPower;
 
+    Rigidbody TargetBall;
+
     bool ClickedToShoot=false;
     public bool isOnStartBlock;
-    Vector3 NotMoving = new Vector3(0, 0, 0);
+    Vector3 NotMoving = new Vector3(0.1f, 0.1f, 0.1f); //ball taking to long to full stop. so adjust this to feel
 
     private void Start()
     {
@@ -46,13 +48,17 @@ public class BallController : MonoBehaviour
         PreviousSTATE = GM.state;
 
         if(gameObject.tag == "TargetBall") {DataHandler.UpdateTargetData(); }
-        if(gameObject.tag == "PowerBall") {DataHandler.UpdatePowerData(); }
+        if(gameObject.tag == "PowerBall")
+        {
+            DataHandler.UpdatePowerData();
+            TargetBall = GameObject.FindGameObjectWithTag("TargetBall").GetComponent<Rigidbody>();
+        }
     }
 
     //clicked ball
     private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag =="TargetBall" && Rb.velocity == NotMoving)
+        if (Input.GetMouseButtonDown(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag =="TargetBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z)
         {
             StartPos.x = gameObject.transform.position.x;
             StartPos.y = gameObject.transform.position.y;
@@ -63,7 +69,7 @@ public class BallController : MonoBehaviour
             ClickedToShoot = true;
         }
 
-        if (Input.GetMouseButtonDown(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity == NotMoving)
+        if (Input.GetMouseButtonDown(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z && TargetBall.velocity.x <= NotMoving.x && TargetBall.velocity.y <= NotMoving.y && TargetBall.velocity.z <= NotMoving.z)
         {
             StartPos.x = gameObject.transform.position.x;
             StartPos.y = gameObject.transform.position.y;
@@ -73,12 +79,19 @@ public class BallController : MonoBehaviour
             lr.enabled = true;
             ClickedToShoot = true;
         }
+
+
+        //test
+        //&& Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z
+        //&& Rb.velocity == NotMoving
+        //&& TargetBall.velocity.x <= NotMoving.x && TargetBall.velocity.y <= NotMoving.y && TargetBall.velocity.z <= NotMoving.z
+
     }
 
     //mouse up -> apply force based of of mouse up mouse pos
     private void OnMouseUp()
     {
-        if (Input.GetMouseButtonUp(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity == NotMoving)
+        if (Input.GetMouseButtonUp(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z)
         {
             ClickedToShoot = false;
             lr.enabled = false;
@@ -108,7 +121,7 @@ public class BallController : MonoBehaviour
             Rb.AddForce(ApplyVect);
         }
 
-        if (Input.GetMouseButtonUp(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity == NotMoving)
+        if (Input.GetMouseButtonUp(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z && TargetBall.velocity.x <= NotMoving.x && TargetBall.velocity.y <= NotMoving.y && TargetBall.velocity.z <= NotMoving.z)
         {
             ClickedToShoot = false;
             lr.enabled = false;
@@ -145,7 +158,7 @@ public class BallController : MonoBehaviour
     {
         if (ClickedToShoot == true)
         {
-            if (Input.GetMouseButton(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity == NotMoving)
+            if (Input.GetMouseButton(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z)
             {
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, gameObject.transform.position.y, Input.mousePosition.y);
                 //End Point of Line renderer
@@ -167,7 +180,7 @@ public class BallController : MonoBehaviour
                 lr.SetPosition(1, LrEndpoint);//*LrScale
             }
 
-            if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity == NotMoving)
+            if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall" && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z && TargetBall.velocity.x <= NotMoving.x && TargetBall.velocity.y <= NotMoving.y && TargetBall.velocity.z <= NotMoving.z)
             {
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, gameObject.transform.position.y, Input.mousePosition.y);
                 //End Point of Line renderer
@@ -194,7 +207,7 @@ public class BallController : MonoBehaviour
         
         
 
-        if (GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && Rb.velocity == NotMoving && isOnStartBlock ==false)
+        if (GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && isOnStartBlock ==false && Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z)
         {
             Debug.Log("TARGET BALL STATE CHANGE SHOULD NOW CHANGE TO CAN PLACE POWERBALL");
             GM.state = STATE.PLACEPOWERBALL;
