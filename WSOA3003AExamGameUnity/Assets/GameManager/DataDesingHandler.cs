@@ -24,9 +24,11 @@ public class DataDesingHandler : MonoBehaviour
     public float LrMaxLength;
     public float LrScale;
 
+    public Vector3 NotMoving;
+
     GameObject TargetBall;
     GameObject PowerBall;
-  
+    
 
     // Start is called before the first frame update
     void Start()

@@ -4086,6 +4086,7 @@ MonoBehaviour:
   BallBounciness: 0.4
   LrMaxLength: 6
   LrScale: 0.5
+  NotMoving: {x: 0.1, y: 0.1, z: 0.1}
 --- !u!4 &2015482017
 Transform:
   m_ObjectHideFlags: 0
@@ -4112,9 +4113,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95955a3565650c043ae04e0ea52ee318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
+  state: 0
+  previousState: 0
   shootCounter: 0
   shoottxt: {fileID: 753546644}
+  PowerBall: {fileID: 0}
+  TargetBall: {fileID: 0}
 --- !u!1001 &2024141968
 PrefabInstance:
   m_ObjectHideFlags: 0

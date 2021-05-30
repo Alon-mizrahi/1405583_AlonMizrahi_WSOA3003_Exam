@@ -42,11 +42,13 @@ public class StartBlock : MonoBehaviour
         {
             Instantiate(TargetBall, PlacementPos, Quaternion.identity);
             GM.state = STATE.SHOOTTARGETBALL;
+            GM.getTargetBall(); 
         }
         if(GM.state == STATE.PLACEPOWERBALL)
         {
             Instantiate(PowerBall, PlacementPos, Quaternion.identity);
             GM.state = STATE.CANSHOOTPOWERBALL;
+            GM.getPowerBall();
         }
     }
 
