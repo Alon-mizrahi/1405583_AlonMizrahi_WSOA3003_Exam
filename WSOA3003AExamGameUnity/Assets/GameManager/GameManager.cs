@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     Vector3 NotMoving;
     DataDesingHandler DataHandler;
-
+    public BallOnGoal Goal;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
         previousState = PREVIOUSSTATE.PLACETARGETBALL;
         NotMoving = DataHandler.NotMoving;
         shootCounter = 0;
+
+        Goal = GameObject.FindGameObjectWithTag("GoalBlock").GetComponent<BallOnGoal>();
     }
 
 
@@ -89,7 +91,6 @@ public class GameManager : MonoBehaviour
         if(gotTBall == true)
         {
             //Debug.Log("Velocity: "+TargetBall.GetComponent<Rigidbody>().velocity);
-
             if(TargetBall.GetComponent<Rigidbody>().velocity.x > NotMoving.x || TargetBall.GetComponent<Rigidbody>().velocity.y > NotMoving.y || TargetBall.GetComponent<Rigidbody>().velocity.z > NotMoving.z)
             {
                 state = STATE.BALLROLLING;
@@ -98,15 +99,17 @@ public class GameManager : MonoBehaviour
             {
                 state = STATE.BALLROLLING;
             }
-
-            if (state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
+            if (Goal.isPowerTouchingGoal == true && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
             {
-                //Debug.Log("ball stopped");
+                Debug.Log("ball stopped");
+                TargetBall.GetComponent<Rigidbody>().isKinematic = true;
                 state = STATE.BALLSTOPPED;
+                TargetBall.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
         if(gotPBall == true)
         {
+            gotTBall = false;
             if (PowerBall.GetComponent<Rigidbody>().velocity.x > NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y > NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z > NotMoving.z)
             {
                 state = STATE.BALLROLLING;
@@ -115,49 +118,39 @@ public class GameManager : MonoBehaviour
             {
                 state = STATE.BALLROLLING;
             }
-            //if (state == STATE.BALLROLLING && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
-            //{
-            //    state = STATE.BALLSTOPPED;
-            //}
-
-            if (state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
+            if (Goal.isPowerTouchingGoal == true && Goal.isTargetTouchingGoal == true && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
             {
+                Debug.Log("both balls stopped");
+                TargetBall.GetComponent<Rigidbody>().isKinematic = true;
+                PowerBall.GetComponent<Rigidbody>().isKinematic = true;
                 state = STATE.BALLSTOPPED;
+                TargetBall.GetComponent<Rigidbody>().isKinematic = false;
+                PowerBall.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
-
-
-
 
     }
 
 
 
-//main loop:
-/*
- * STATE:                       PREVIOUSSTATE:
- * place target ball            place Target ball           -->     player can place target ball
- * Shoot target ball            place Target ball           -->     player can shoot the target ball
- * ball rolling                 shoot Target ball           -->     player must wait for ball to stop rolling
- *--------------CURRENTLY HERE--------------------
- * ball stopped                 shoot target ball           -->     must change states to place power ball
- * place power ball             shoot Target ball           -->     player can place power ball
- * ------------------
- * main loop:
- * Shoot power ball             place power ball            -->     player can shoot power ball
- * ball rolling                 shoot power ball            -->     player must wait for balls to stop rolling
- * Shoot power ball             Shoot power ball            -->     player can shoot power ball
- * ------------------ 
- * 
- * 
- * 
- * curently have:
- * place taget ball             place target ball
- * shoot target ball            place target ball
- * ball rolling                 shoot target ball
-*/
+    //main loop:
+    /*
+     * STATE:                       PREVIOUSSTATE:
+     * place target ball            place Target ball           -->     player can place target ball
+     * Shoot target ball            place Target ball           -->     player can shoot the target ball
+     * ball rolling                 shoot Target ball           -->     player must wait for ball to stop rolling
+     * ball stopped                 shoot target ball           -->     must change states to place power ball
+     * place power ball             shoot Target ball           -->     player can place power ball
+     * ------------------
+     * main loop:
+     * Shoot power ball             place power ball            -->     player can shoot power ball
+     * ball rolling                 shoot power ball            -->     player must wait for balls to stop rolling
+     * ball stopped                 shoot target ball           -->     must change states to shoot power ball
+     * Shoot power ball             Shoot power ball            -->     player can shoot power ball
+     * ------------------ 
+    */
 
-void MainLoop()
+    void MainLoop()
     {
         if ( state == STATE.BALLSTOPPED && previousState == PREVIOUSSTATE.SHOOTTARGETBALL)
         {
@@ -196,6 +189,7 @@ void MainLoop()
 
     void Won()
     {
+        gotTBall = false;
         Debug.Log("WON");
         state = STATE.WON;
     }

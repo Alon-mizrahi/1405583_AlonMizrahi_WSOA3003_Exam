@@ -7,6 +7,7 @@ TagManager:
   - GM
   - TargetBall
   - PowerBall
+  - GoalBlock
   layers:
   - Default
   - TransparentFX
