@@ -4104,11 +4104,11 @@ MonoBehaviour:
   ShootPower: 25
   MaxPower: 270
   BallMass: 0.3
-  BallDrag: 0.15
-  BallAngularDrag: 0.05
+  BallDrag: 0.2
+  BallAngularDrag: 0.01
   BallDynamicFriction: 0.6
   BallStaticFriction: 0.2
-  BallBounciness: 0.2
+  BallBounciness: 0.4
   LrMaxLength: 6
   LrScale: 0.5
   NotMoving: {x: 0.1, y: 0.1, z: 0.1}

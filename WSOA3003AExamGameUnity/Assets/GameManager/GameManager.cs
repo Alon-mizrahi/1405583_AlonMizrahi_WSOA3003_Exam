@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
             {
                 state = STATE.BALLROLLING;
             }
-            if (Goal.isPowerTouchingGoal == true && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
+            if (Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
             {
                 Debug.Log("ball stopped");
                 TargetBall.GetComponent<Rigidbody>().isKinematic = true;
@@ -110,15 +110,15 @@ public class GameManager : MonoBehaviour
         if(gotPBall == true)
         {
             gotTBall = false;
-            if (PowerBall.GetComponent<Rigidbody>().velocity.x > NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y > NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z > NotMoving.z)
+            if (PowerBall.GetComponent<Rigidbody>().velocity.x > NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y > NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z > NotMoving.z || PowerBall.GetComponent<Rigidbody>().velocity.x < -NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y < -NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z < -NotMoving.z)
             {
                 state = STATE.BALLROLLING;
             }
-            if (PowerBall.GetComponent<Rigidbody>().velocity.x < -NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y < -NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z < -NotMoving.z)
-            {
-                state = STATE.BALLROLLING;
-            }
-            if (Goal.isPowerTouchingGoal == true && Goal.isTargetTouchingGoal == true && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
+            //if (PowerBall.GetComponent<Rigidbody>().velocity.x < -NotMoving.x || PowerBall.GetComponent<Rigidbody>().velocity.y < -NotMoving.y || PowerBall.GetComponent<Rigidbody>().velocity.z < -NotMoving.z)
+            //{
+            //    state = STATE.BALLROLLING;
+            //}
+            if (Goal.isPowerTouchingGoal == false && Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && TargetBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z)
             {
                 Debug.Log("both balls stopped");
                 TargetBall.GetComponent<Rigidbody>().isKinematic = true;
