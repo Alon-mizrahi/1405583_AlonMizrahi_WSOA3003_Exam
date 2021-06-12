@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour
     }
     */
 
+    //UI Elements
     public float shootCounter;
     public Text shoottxt;
+    public Text TurnIndicator;
 
     public GameObject PowerBall;
     public GameObject TargetBall;
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
         shootCounter = 0;
 
         Goal = GameObject.FindGameObjectWithTag("GoalBlock").GetComponent<BallOnGoal>();
+
     }
 
 
@@ -68,9 +71,20 @@ public class GameManager : MonoBehaviour
         MainLoop();
     }
 
+    //not so efficient. should place where needed
     void UpdateUI()
     {
         shoottxt.text = "" + shootCounter;
+
+        //Turn Indicator text
+        if(state == STATE.BALLROLLING) { TurnIndicator.text = ""; }
+        if (state == STATE.PLACETARGETBALL) { TurnIndicator.text = "Place the target ball"; }
+        if (state == STATE.PLACEPOWERBALL) { TurnIndicator.text = "Place the power ball"; }
+        if (state == STATE.SHOOTTARGETBALL) { TurnIndicator.text = "Set target ball"; }
+        if (state == STATE.CANSHOOTPOWERBALL) { TurnIndicator.text = "Shoot power ball"; }
+
+
+
     }
 
     public void getPowerBall()
@@ -99,7 +113,7 @@ public class GameManager : MonoBehaviour
             {
                 state = STATE.BALLROLLING;
             }
-            if (Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z)
+            if (Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && TargetBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z)
             {
                 Debug.Log("ball stopped");
                 TargetBall.GetComponent<Rigidbody>().isKinematic = true;

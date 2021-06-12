@@ -231,7 +231,6 @@ MonoBehaviour:
   LrMaxLength: 0
   LrScale: 0
   DataHandler: {fileID: 0}
-  PreviousSTATE: 0
   power: 0
   maxPower: 0
   isOnStartBlock: 1
@@ -248,3 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 0
+  Mat_Normal: {fileID: 2100000, guid: b4cbcdd5a085a8e4096d430b62bed81d, type: 2}
+  Mat_Sticky: {fileID: 2100000, guid: 950d47a293a87b24aa0af171daf0d93a, type: 2}
+  Mat_Through: {fileID: 2100000, guid: d04272fbef6662a499d484cddfa244f5, type: 2}
+  Selected: {r: 225, g: 225, b: 0, a: 225}
+  UnSelected: {r: 176, g: 176, b: 176, a: 128}

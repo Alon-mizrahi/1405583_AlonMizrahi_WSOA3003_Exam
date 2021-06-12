@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerSelectorButton : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PowerSelectorButton : MonoBehaviour
 
     string power;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +18,35 @@ public class PowerSelectorButton : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
-    private void OnMouseDown()
+    public void PowerSelector()
     {
-        if(GM.state == STATE.CANSHOOTPOWERBALL || GM.state == STATE.PLACEPOWERBALL)
-        { 
-            PBScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>();
+        if (GM.state == STATE.CANSHOOTPOWERBALL)
+        {
+            if (PBScript == null)
+            { 
+                PBScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>();
+            }
+            Debug.Log("Clicked power selector: " + power);
+
             PBScript.SelectPower(power);
         }
     }
+
+
+
+/*
+    private void OnMouseDown()
+    {
+
+        if(Input.GetMouseButtonDown(0) && GM.state == STATE.CANSHOOTPOWERBALL)// || GM.state == STATE.PLACEPOWERBALL)
+        { 
+            PBScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>();
+
+            Debug.Log("Clicked power selector: " + power);
+            PBScript.SelectPower(power);
+        }
+    }
+    */
+
 
 }

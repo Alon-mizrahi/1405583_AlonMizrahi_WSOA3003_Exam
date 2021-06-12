@@ -8,6 +8,10 @@ TagManager:
   - TargetBall
   - PowerBall
   - GoalBlock
+  - UI_Through
+  - UI_Sticky
+  - UI_Normal
+  - Wall
   layers:
   - Default
   - TransparentFX
