@@ -13,10 +13,15 @@ public class GoalDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider Ball)
     {
-        if (Ball.gameObject.tag == "TargetBall" || Ball.gameObject.tag == "PowerBall")
+        if (Ball.gameObject.tag == "TargetBall")
         {
             Destroy(Ball.gameObject);
-            GM.GotInHole();
+            GM.Won();
+        }
+        if (Ball.gameObject.tag == "PowerBall")
+        {
+            Destroy(Ball.gameObject);
+            GM.Lost();
         }
     }
 }

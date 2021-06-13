@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour
     Vector3 ApplyVect;
     Vector3 LrEndpoint;
 
-    public float LrLength;
+    //public float LrLength;
     public float LrMaxLength;
     public float LrScale;
 
@@ -31,11 +31,9 @@ public class BallController : MonoBehaviour
     public float power;
     public float maxPower;
 
-    //Rigidbody TargetBall;
 
     bool ClickedToShoot=false;
     public bool isOnStartBlock;
-    //Vector3 NotMoving = new Vector3(0.1f, 0.1f, 0.1f); //ball taking to long to full stop. so adjust this to feel
 
     private void Start()
     {
@@ -45,14 +43,13 @@ public class BallController : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         DataHandler = GameObject.FindGameObjectWithTag("GM").GetComponent<DataDesingHandler>();
 
-        //PreviousSTATE = GM.state;
 
         if(gameObject.tag == "TargetBall") {DataHandler.UpdateTargetData(); }
         if(gameObject.tag == "PowerBall")
         {
             DataHandler.UpdatePowerData();
-            //TargetBall = GameObject.FindGameObjectWithTag("TargetBall").GetComponent<Rigidbody>();
         }
+
     }
 
     //clicked ball
@@ -79,12 +76,6 @@ public class BallController : MonoBehaviour
             lr.enabled = true;
             ClickedToShoot = true;
         }
-
-
-        //test
-        //&& Rb.velocity.x <= NotMoving.x && Rb.velocity.y <= NotMoving.y && Rb.velocity.z <= NotMoving.z
-        //&& Rb.velocity == NotMoving
-        //&& TargetBall.velocity.x <= NotMoving.x && TargetBall.velocity.y <= NotMoving.y && TargetBall.velocity.z <= NotMoving.z
 
     }
 
@@ -175,9 +166,26 @@ public class BallController : MonoBehaviour
 
                 LrEndpoint = new Vector3(EndPos.x, EndPos.y, EndPos.z);//do i make x,z -ve?
 
-                //LrEndpoint. = LrScale;
+             
+                //LINE RENDERER LENGTH LIMIT-------HOW TO REDUCE VECTOR DISTANCE
+            /*
+                float Dist = Vector3.Distance(StartPos, LrEndpoint);
+                if (Dist <= LrMaxLength)
+                {
+                    lr.SetPosition(1, LrEndpoint);
+                }
+                else
+                {
+                    LrEndpoint = LrEndpoint * LrMaxLength / Dist;
 
-                lr.SetPosition(1, LrEndpoint);//*LrScale
+                    lr.SetPosition(1, LrEndpoint); //d = s-e
+
+                }
+
+                Debug.Log("lr DIST: " + Dist);
+            */
+
+                lr.SetPosition(1, LrEndpoint);
             }
 
             if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall")
@@ -204,20 +212,11 @@ public class BallController : MonoBehaviour
 
         }
 
-        
-        
-
         if (GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall" && isOnStartBlock ==false)
         {
             Debug.Log("TARGET BALL STATE CHANGE SHOULD NOW CHANGE TO CAN PLACE POWERBALL");
             GM.state = STATE.PLACEPOWERBALL;
         }
-
-
-        //if (GM.state != STATE.CANSHOOTPOWERBALL & gameObject.tag == "PowerBall" && Rb.velocity == NotMoving && isOnStartBlock ==true)
-        //{
-        //            Debug.Log("STATE CHANGE AND CAN NOW SHOOT POWERBALL AGAIN");
-        //}
 
     }
 

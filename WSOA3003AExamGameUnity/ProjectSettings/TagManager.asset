@@ -12,6 +12,7 @@ TagManager:
   - UI_Sticky
   - UI_Normal
   - Wall
+  - ThroughWall
   layers:
   - Default
   - TransparentFX

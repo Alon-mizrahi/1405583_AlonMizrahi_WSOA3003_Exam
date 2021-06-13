@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 //State Machine states
 public enum STATE { PLACETARGETBALL, SHOOTTARGETBALL, PLACEPOWERBALL, CANSHOOTPOWERBALL, BALLROLLING, BALLSTOPPED, WON, LOST }
 public enum PREVIOUSSTATE { PLACETARGETBALL, SHOOTTARGETBALL, PLACEPOWERBALL, CANSHOOTPOWERBALL, BALLROLLING, BALLSTOPPED , WON, LOST }
@@ -34,10 +35,23 @@ public class GameManager : MonoBehaviour
     }
     */
 
+    public int SetPar = 0;//not sure how to use this yet??
+    
     //UI Elements
     public float shootCounter;
     public Text shoottxt;
     public Text TurnIndicator;
+    public Text ParDisplay; // three par displays all equal. 
+
+    //Won and LOST state display
+    public GameObject WonDisplay;
+    public Text FinalScore;
+    public Text FinalShotCount;
+    public Text FinalWPar;
+
+    public GameObject LostDisplay;
+    public Text FinalLPar;
+
 
     public GameObject PowerBall;
     public GameObject TargetBall;
@@ -59,6 +73,14 @@ public class GameManager : MonoBehaviour
         shootCounter = 0;
 
         Goal = GameObject.FindGameObjectWithTag("GoalBlock").GetComponent<BallOnGoal>();
+
+        WonDisplay.SetActive(false);
+        LostDisplay.SetActive(false);
+
+        //SetPar
+        ParDisplay.text = "Par: " + SetPar;
+        FinalLPar.text = "Par: " + SetPar;
+        FinalWPar.text = "Par: " + SetPar;
 
     }
 
@@ -184,29 +206,43 @@ public class GameManager : MonoBehaviour
         Lost();
     }
 
-    public void GotInHole()
-    {
-        Won();
-    }
 
 
 
-
-
-
-    void Lost()
+    public void Lost()
     {
         Debug.Log("Lost");
         state = STATE.LOST;
+        LostDisplay.SetActive(true);
 
     }
 
-    void Won()
+    public void Won()
     {
         gotTBall = false;
         Debug.Log("WON");
         state = STATE.WON;
+        FinalShotCount.text = "Shots: " + shootCounter;
+        FinalScore.text = "poop";
+        WonDisplay.SetActive(true);
+
     }
+
+
+    //UI Button functions-----------------
+
+    public void NextLevel()
+    {
+        Debug.Log("CLICKED NEXT");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void ReplayLevel()
+    {
+        Debug.Log("CLICKED REPLAY");
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
+
 
 
 

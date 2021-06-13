@@ -27,9 +27,6 @@ public class PowerBallScript : MonoBehaviour
     public Material Mat_Sticky;
     public Material Mat_Through;
 
-    public bool isWentThrough = false;
-    public bool isStartNexttoWall = false;
-
     public Color Selected = new Color(225,225,0,225);
     public Color UnSelected = new Color(176,176,176,128);
 
@@ -85,8 +82,8 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.NORMAL;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Normal;
 
+        ToggleThroughWalls(true);
     }
-
 
     void StickyBall()
     {
@@ -94,68 +91,43 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.STICKY;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Sticky;
 
+        ToggleThroughWalls(true);
     }
-
 
     void ThroughBall()
     {
         Debug.Log("Through Ball Selected");
         power = POWER.GOTHOUGH;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Through;
-    
+
+        ToggleThroughWalls(false);
     }
+
+    //THROUGH BALL
+    //pass in false to disable | pass in true to enable
+    void ToggleThroughWalls(bool isOn) 
+    {
+        GameObject[] ThroughWalls = GameObject.FindGameObjectsWithTag("ThroughWall");
+
+        for(int i = 0; i < ThroughWalls.Length; i++)
+        {
+            ThroughWalls[i].GetComponent<BoxCollider>().enabled = isOn;
+        }
+
+    }
+    
 
     //STICKY BALL
     private void OnCollisionEnter(Collision collision)
     {
-        if (power == POWER.STICKY && collision.gameObject.tag == "Wall")
+        if (power == POWER.STICKY)
         {
-                gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        }
-    }
-
-
-    //THROUGH BALL
-    //first wall
-    //enter trigger -> disable box collider
-    //exit -> trigger turn on box collider
-    //check for single wall passing though -> can only do one
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (power == POWER.GOTHOUGH && other.gameObject.tag == "Wall" && isWentThrough == false)
-        {
-                BoxCollider[] col = other.gameObject.GetComponentsInChildren<BoxCollider>();
-                col[1].enabled = false;
-        }
-    }
-
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Wall" && GM.state == STATE.BALLSTOPPED)
-        {
-            isWentThrough = false;
-            isStartNexttoWall = true;
-
-        }
-        
-    }
-
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (power == POWER.GOTHOUGH && other.gameObject.tag == "Wall")
-        {
-            BoxCollider[] col = other.gameObject.GetComponentsInChildren<BoxCollider>();
-            col[1].enabled = true;
-
-            if (isStartNexttoWall == false)
+            if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "ThroughWall")
             {
-                isWentThrough = true;
-            }   
+                gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0f,0f,0f);
+                //gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                //gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }    
         }
     }
 
