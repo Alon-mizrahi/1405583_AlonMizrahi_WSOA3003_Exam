@@ -35,12 +35,13 @@ public class PowerBallScript : MonoBehaviour
     void Start()
     {
         power = POWER.NORMAL;
+        
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
 
         Normal_UI = GameObject.FindGameObjectWithTag("UI_Normal");
         Sticky_UI = GameObject.FindGameObjectWithTag("UI_Sticky");
         Through_UI = GameObject.FindGameObjectWithTag("UI_Through");
-
+        Normal_UI.GetComponent<Outline>().effectColor = Selected;
     }
 
 

@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
         //state = STATE.START; if there is menu
         DataHandler = gameObject.GetComponent<DataDesingHandler>();
         state = STATE.PLACETARGETBALL;
@@ -211,6 +212,7 @@ public class GameManager : MonoBehaviour
 
     public void Lost()
     {
+        Time.timeScale = 0f;
         Debug.Log("Lost");
         state = STATE.LOST;
         LostDisplay.SetActive(true);
@@ -219,6 +221,7 @@ public class GameManager : MonoBehaviour
 
     public void Won()
     {
+        Time.timeScale = 0f;
         gotTBall = false;
         Debug.Log("WON");
         state = STATE.WON;

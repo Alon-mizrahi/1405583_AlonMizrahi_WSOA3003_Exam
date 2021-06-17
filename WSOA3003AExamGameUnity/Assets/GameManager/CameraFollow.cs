@@ -42,7 +42,7 @@ public class CameraFollow : MonoBehaviour
     private void LateUpdate()
     {
 
-        if (Input.mousePosition.x > Screen.width - boundary || Input.mousePosition.x < 0 + boundary || Input.mousePosition.y > Screen.height - boundary || Input.mousePosition.y < 0 + boundary)
+        if (Input.mousePosition.x > Screen.width - boundary && Input.GetMouseButton(0) == false && GM.state !=STATE.BALLROLLING || Input.mousePosition.x < 0 + boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y > Screen.height - boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y < 0 + boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING)
         {
             if (Input.mousePosition.x > Screen.width - boundary)
             {
