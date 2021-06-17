@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class StartMenu : MonoBehaviour
     public void PlayBtn()
     {
         //go to first level or better, go to current level //level tracker script
+
+        //just going to first level
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Debug.Log("clicked play");
     }
 

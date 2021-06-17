@@ -13,6 +13,7 @@ TagManager:
   - UI_Normal
   - Wall
   - ThroughWall
+  - Teleport
   layers:
   - Default
   - TransparentFX
