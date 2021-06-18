@@ -14,6 +14,7 @@ TagManager:
   - Wall
   - ThroughWall
   - Teleport
+  - UI_Mag
   layers:
   - Default
   - TransparentFX

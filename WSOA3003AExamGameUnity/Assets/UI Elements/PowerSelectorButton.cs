@@ -15,6 +15,7 @@ public class PowerSelectorButton : MonoBehaviour
     void Start()
     {
         power = gameObject.name;
+        Debug.Log("Getting Power?: " + power);
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
@@ -22,31 +23,23 @@ public class PowerSelectorButton : MonoBehaviour
     {
         if (GM.state == STATE.CANSHOOTPOWERBALL)
         {
-            if (PBScript == null)
-            { 
-                PBScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>();
-            }
-            Debug.Log("Clicked power selector: " + power);
+                Debug.Log("1) Clicked power selector: " + power);
 
-            PBScript.SelectPower(power);
+                PBScript.SelectPower(power);
+           
         }
     }
 
-
-
-/*
-    private void OnMouseDown()
+    private void Update()
     {
-
-        if(Input.GetMouseButtonDown(0) && GM.state == STATE.CANSHOOTPOWERBALL)// || GM.state == STATE.PLACEPOWERBALL)
-        { 
+        if (GM.state == STATE.CANSHOOTPOWERBALL && PBScript == null)
+        {
             PBScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>();
 
-            Debug.Log("Clicked power selector: " + power);
-            PBScript.SelectPower(power);
+            Debug.Log("PBScript Found?: " + PBScript);
         }
+       
     }
-    */
 
 
 }

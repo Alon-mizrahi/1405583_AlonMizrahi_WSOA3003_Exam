@@ -90,7 +90,7 @@ public class TutorialDisplay : MonoBehaviour
         if(Tutclicked == true)
         {
             TutDisplay3.SetActive(true);
-            TutorialText3.text = "To begin, Click on the Highlighted start block to place the Target ball. ";
+            TutorialText3.text = "To begin, Click on the Pink start block to place the Target ball. ";
             startBlocker.SetActive(false);
         }
 

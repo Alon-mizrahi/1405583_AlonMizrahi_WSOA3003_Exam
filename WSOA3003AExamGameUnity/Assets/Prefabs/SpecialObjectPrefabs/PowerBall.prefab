@@ -227,7 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4efaaab01e272bb408daf94439035e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LrLength: 0
   LrMaxLength: 0
   LrScale: 0
   DataHandler: {fileID: 0}
@@ -250,5 +249,6 @@ MonoBehaviour:
   Mat_Normal: {fileID: 2100000, guid: b4cbcdd5a085a8e4096d430b62bed81d, type: 2}
   Mat_Sticky: {fileID: 2100000, guid: 950d47a293a87b24aa0af171daf0d93a, type: 2}
   Mat_Through: {fileID: 2100000, guid: d04272fbef6662a499d484cddfa244f5, type: 2}
+  Mat_Mag: {fileID: 2100000, guid: 670bbb1f030130f4f9e334bccb68503d, type: 2}
   Selected: {r: 225, g: 225, b: 0, a: 225}
   UnSelected: {r: 176, g: 176, b: 176, a: 128}
