@@ -15,11 +15,13 @@ public class CameraFollow : MonoBehaviour
     //for panning
     public float speed;
     public float boundary;
+    public float PauseBoundary;
 
     private void Start()
     {
         GM = GameObject.FindWithTag("GM").GetComponent<GameManager>();
         StartArea = GameObject.FindWithTag("Respawn").GetComponent<Transform>();
+        //PauseBoundary = boundary + 5f;
     }
 
     //when placing and shooting target ball, set as target, else power ball is target
@@ -42,7 +44,7 @@ public class CameraFollow : MonoBehaviour
     private void LateUpdate()
     {
 
-        if (Input.mousePosition.x > Screen.width - boundary && Input.GetMouseButton(0) == false && GM.state !=STATE.BALLROLLING || Input.mousePosition.x < 0 + boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y > Screen.height - boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y < 0 + boundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING)
+        if (Input.mousePosition.x > Screen.width - PauseBoundary && Input.GetMouseButton(0) == false && GM.state !=STATE.BALLROLLING || Input.mousePosition.x < 0 + PauseBoundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y > Screen.height - PauseBoundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING || Input.mousePosition.y < 0 + PauseBoundary && Input.GetMouseButton(0) == false && GM.state != STATE.BALLROLLING)
         {
             if (Input.mousePosition.x > Screen.width - boundary)
             {

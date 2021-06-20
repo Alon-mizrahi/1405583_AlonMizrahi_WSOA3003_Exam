@@ -166,26 +166,34 @@ public class BallController : MonoBehaviour
 
                 LrEndpoint = new Vector3(EndPos.x, EndPos.y, EndPos.z);//do i make x,z -ve?
 
-             
+
                 //LINE RENDERER LENGTH LIMIT-------HOW TO REDUCE VECTOR DISTANCE
-            /*
-                float Dist = Vector3.Distance(StartPos, LrEndpoint);
-                if (Dist <= LrMaxLength)
-                {
-                    lr.SetPosition(1, LrEndpoint);
-                }
-                else
-                {
-                    LrEndpoint = LrEndpoint * LrMaxLength / Dist;
+                //Normalize and then scale
 
-                    lr.SetPosition(1, LrEndpoint); //d = s-e
+                Vector3 UnitEndpt = Vector3.Normalize(LrEndpoint-StartPos);
+                //Vector3 UnitEndpt = Vector3.Normalize(LrEndpoint);
 
-                }
+                lr.SetPosition(1,UnitEndpt);
+                //lr.SetPosition(1, LrEndpoint);
 
-                Debug.Log("lr DIST: " + Dist);
-            */
+                /*
+                    float Dist = Vector3.Distance(StartPos, LrEndpoint);
+                    if (Dist <= LrMaxLength)
+                    {
+                        lr.SetPosition(1, LrEndpoint);
+                    }
+                    else
+                    {
+                        LrEndpoint = LrEndpoint * LrMaxLength / Dist;
 
-                lr.SetPosition(1, LrEndpoint);
+                        lr.SetPosition(1, LrEndpoint); //d = s-e
+
+                    }
+
+                    Debug.Log("lr DIST: " + Dist);
+                */
+
+                //lr.SetPosition(1, LrEndpoint);
             }
 
             if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall")
