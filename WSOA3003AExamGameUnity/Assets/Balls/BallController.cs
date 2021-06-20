@@ -158,42 +158,17 @@ public class BallController : MonoBehaviour
                 EndPos.z = Camera.main.ScreenToWorldPoint(Input.mousePosition).z;
 
                 //Get direction for force to be applied
-                Direction.x = (EndPos.x - StartPos.x);
-                Direction.z = (EndPos.z - StartPos.z);
+                //Invert for drag
+                Direction.x = (StartPos.x - EndPos.x);
+                Direction.z = (StartPos.z - EndPos.z);
                 Direction.y = 0;
+
 
                 //to scale line renderer multiply endpos by power or scaling factor
 
-                LrEndpoint = new Vector3(EndPos.x, EndPos.y, EndPos.z);//do i make x,z -ve?
+                LrEndpoint = new Vector3(2 * StartPos.x - EndPos.x, EndPos.y, 2 * StartPos.z - EndPos.z);
 
-
-                //LINE RENDERER LENGTH LIMIT-------HOW TO REDUCE VECTOR DISTANCE
-                //Normalize and then scale
-
-                Vector3 UnitEndpt = Vector3.Normalize(LrEndpoint-StartPos);
-                //Vector3 UnitEndpt = Vector3.Normalize(LrEndpoint);
-
-                lr.SetPosition(1,UnitEndpt);
-                //lr.SetPosition(1, LrEndpoint);
-
-                /*
-                    float Dist = Vector3.Distance(StartPos, LrEndpoint);
-                    if (Dist <= LrMaxLength)
-                    {
-                        lr.SetPosition(1, LrEndpoint);
-                    }
-                    else
-                    {
-                        LrEndpoint = LrEndpoint * LrMaxLength / Dist;
-
-                        lr.SetPosition(1, LrEndpoint); //d = s-e
-
-                    }
-
-                    Debug.Log("lr DIST: " + Dist);
-                */
-
-                //lr.SetPosition(1, LrEndpoint);
+                lr.SetPosition(1, LrEndpoint);
             }
 
             if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall")
@@ -205,17 +180,17 @@ public class BallController : MonoBehaviour
                 EndPos.z = Camera.main.ScreenToWorldPoint(Input.mousePosition).z;
 
                 //Get direction for force to be applied
-                Direction.x = (EndPos.x - StartPos.x);
-                Direction.z = (EndPos.z - StartPos.z);
+                //Invert for drag
+                Direction.x = (StartPos.x - EndPos.x);
+                Direction.z = (StartPos.z - EndPos.z);
                 Direction.y = 0;
 
                 //to scale line renderer multiply endpos by power or scaling factor
 
-                LrEndpoint = new Vector3(EndPos.x, EndPos.y, EndPos.z);//do i make x,z -ve?
+                LrEndpoint = new Vector3(2 * StartPos.x - EndPos.x, EndPos.y, 2 * StartPos.z - EndPos.z);
 
-                //LrEndpoint. = LrScale;
+                lr.SetPosition(1, LrEndpoint);
 
-                lr.SetPosition(1, LrEndpoint);//*LrScale
             }
 
         }
