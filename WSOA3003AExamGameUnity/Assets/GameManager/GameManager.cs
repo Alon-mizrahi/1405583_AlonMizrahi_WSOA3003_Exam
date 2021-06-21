@@ -246,7 +246,12 @@ public class GameManager : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
     }
 
-
+    public void BackToMenu()
+    {
+        Debug.Log("CLICKED MENU");
+        //SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(buildIndex 0));
+        SceneManager.LoadScene("StartMenu");
+    }
 
 
 

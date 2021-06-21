@@ -8,6 +8,12 @@ public class StartMenu : MonoBehaviour
     public GameObject StartDispaly;
     public GameObject SettingsDispaly;
     public GameObject LevelsDispaly;
+    public LevelTracker Tracker;
+
+    private void Start()
+    {
+        Tracker = GameObject.Find("LevelTracker").GetComponent<LevelTracker>();
+    }
 
 
     public void BackBtn()
@@ -40,6 +46,7 @@ public class StartMenu : MonoBehaviour
         StartDispaly.SetActive(false);
         SettingsDispaly.SetActive(false);
         LevelsDispaly.SetActive(true);
+        Tracker.GetButtons();
     }
 
 
