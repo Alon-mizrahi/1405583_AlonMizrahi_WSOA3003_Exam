@@ -35,6 +35,8 @@ public class BallController : MonoBehaviour
     bool ClickedToShoot=false;
     public bool isOnStartBlock;
 
+    float DRAG;
+
     private void Start()
     {
         Rb = gameObject.GetComponent<Rigidbody>();
@@ -44,12 +46,11 @@ public class BallController : MonoBehaviour
         DataHandler = GameObject.FindGameObjectWithTag("GM").GetComponent<DataDesingHandler>();
 
 
-        if(gameObject.tag == "TargetBall") {DataHandler.UpdateTargetData(); }
-        if(gameObject.tag == "PowerBall")
-        {
-            DataHandler.UpdatePowerData();
-        }
+        if(gameObject.tag == "TargetBall") { DataHandler.UpdateTargetData(); }
+        if(gameObject.tag == "PowerBall") { DataHandler.UpdatePowerData(); }
 
+        DRAG = Rb.drag;
+        Debug.Log("Initial drag: " + DRAG);
     }
 
     //clicked ball
@@ -164,12 +165,46 @@ public class BallController : MonoBehaviour
                 Direction.y = 0;
 
 
-                //to scale line renderer multiply endpos by power or scaling factor
 
                 LrEndpoint = new Vector3(2 * StartPos.x - EndPos.x, EndPos.y, 2 * StartPos.z - EndPos.z);
 
-                lr.SetPosition(1, LrEndpoint);
+
+
+                //to scale line renderer multiply endpos by power or scaling factor
+                //float Dist = Vector3.Distance(StartPos, EndPos);//LrEndpoint);
+                //Debug.Log("Dist: " + Dist);
+                //if (Dist > LrMaxLength)
+                //{
+
+                    //-----------------------------------------------
+
+                    /*
+                     //from internet to test
+                    Vector3 dir = endPos - startPos;
+                    float dist = Mathf.Clamp(Vector3.Distance(startPos, endPos), 0, maxDist);
+                    endPos = startPos + (dir.normalized * dist);
+
+                    */
+
+
+                    //float dist = Mathf.Clamp(Vector3.Distance(StartPos, EndPos), 0, LrMaxLength);
+                    // LrEndpoint = StartPos + (EndPos.normalized * dist);
+                    //LrEndpoint =(EndPos.normalized * LrMaxLength);
+
+                    // LrEndpoint = Vector3.ClampMagnitude(EndPos, LrMaxLength);
+                    //LrEndpoint.y = EndPos.y;
+
+
+                //}
+                //else
+                //{
+                   // LrEndpoint = new Vector3(2 * StartPos.x - EndPos.x, EndPos.y, 2 * StartPos.z - EndPos.z);
+                //}
+
+                    lr.SetPosition(1, LrEndpoint);
             }
+            
+
 
             if (Input.GetMouseButton(0) && GM.state == STATE.CANSHOOTPOWERBALL && gameObject.tag == "PowerBall")
             {
@@ -201,6 +236,29 @@ public class BallController : MonoBehaviour
             GM.state = STATE.PLACEPOWERBALL;
         }
 
+
+        if (Rb.drag != DRAG || GM.state == STATE.BALLROLLING) { SlowDown(); }
+       
+        
+
+    }
+
+    void SlowDown()
+    {
+        if (GM.state == STATE.BALLROLLING)
+        {
+            //Debug.Log("Velocity"+Rb.velocity);
+            if (Rb.velocity.x < 0.7f && Rb.velocity.y < 0.7f && Rb.velocity.z < 0.7f && Rb.velocity.x > -0.7f && Rb.velocity.y > -0.7f && Rb.velocity.z > -0.7f )
+            {
+                Rb.drag += 0.008f;
+                //Debug.Log("Drag: " + Rb.drag);
+            }
+        }
+        else
+        {
+            Rb.drag = DRAG;
+            //Debug.Log("Is Drag Back? : " + Rb.drag);
+        }
     }
 
 
@@ -215,3 +273,14 @@ public class BallController : MonoBehaviour
 
 }
 
+/*
+LrEndpoint = new Vector3(
+    
+    (2 * StartPos.x - EndPos.x) * (LrMaxLength / Dist) + (LrMaxLength / Dist) * (StartPos.x/2), 
+    
+    EndPos.y,
+    
+    (2 * StartPos.z - EndPos.z) * (LrMaxLength / Dist) + (LrMaxLength / Dist) * (StartPos.z/2)
+    
+    );
+*/

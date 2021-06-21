@@ -139,9 +139,9 @@ public class GameManager : MonoBehaviour
             if (Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.SHOOTTARGETBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && TargetBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z)
             {
                 Debug.Log("ball stopped");
-                TargetBall.GetComponent<Rigidbody>().isKinematic = true;
+                //TargetBall.GetComponent<Rigidbody>().isKinematic = true;
                 state = STATE.BALLSTOPPED;
-                TargetBall.GetComponent<Rigidbody>().isKinematic = false;
+                //TargetBall.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
         if(gotPBall == true)
@@ -158,11 +158,11 @@ public class GameManager : MonoBehaviour
             if (Goal.isPowerTouchingGoal == false && Goal.isTargetTouchingGoal == false && state == STATE.BALLROLLING && previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL && TargetBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x < NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y < NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z < NotMoving.z && TargetBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && TargetBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && TargetBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z && PowerBall.GetComponent<Rigidbody>().velocity.x > -NotMoving.x && PowerBall.GetComponent<Rigidbody>().velocity.y > -NotMoving.y && PowerBall.GetComponent<Rigidbody>().velocity.z > -NotMoving.z)
             {
                 Debug.Log("both balls stopped");
-                TargetBall.GetComponent<Rigidbody>().isKinematic = true;
-                PowerBall.GetComponent<Rigidbody>().isKinematic = true;
+                //TargetBall.GetComponent<Rigidbody>().isKinematic = true;
+                //PowerBall.GetComponent<Rigidbody>().isKinematic = true;
                 state = STATE.BALLSTOPPED;
-                TargetBall.GetComponent<Rigidbody>().isKinematic = false;
-                PowerBall.GetComponent<Rigidbody>().isKinematic = false;
+                //TargetBall.GetComponent<Rigidbody>().isKinematic = false;
+               // PowerBall.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
 
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    //if power ball should reset powerball? increment shott count
     public void Deadzone()
     {
         Debug.Log("Deadzone Activated");

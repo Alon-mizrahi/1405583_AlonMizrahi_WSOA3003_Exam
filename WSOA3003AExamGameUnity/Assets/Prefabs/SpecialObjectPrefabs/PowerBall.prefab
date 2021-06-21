@@ -118,7 +118,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5769412386204977569}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -159,16 +159,16 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.49305534
-        inSlope: 0
-        outSlope: 0
+        value: 0.5077572
+        inSlope: 0.16357985
+        outSlope: 0.16357985
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.4951498
       - serializedVersion: 3
-        time: 0.98475593
-        value: 0
+        time: 1
+        value: 0.17647508
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -180,32 +180,32 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0, g: 0.42068958, b: 1, a: 1}
+      key1: {r: 0.15098038, g: 0.9724823, b: 0.72107637, a: 1}
+      key2: {r: 0.12549019, g: 1, b: 0.6957197, a: 1}
+      key3: {r: 0.5271977, g: 0.8980392, b: 0.32941177, a: 1}
+      key4: {r: 0.8867924, g: 0.7041172, b: 0.2216981, a: 0}
+      key5: {r: 1, g: 0, b: 0.0539217, a: 0}
+      key6: {r: 0.9622642, g: 0.15886438, b: 0.20219345, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
+      ctime1: 11565
+      ctime2: 16962
+      ctime3: 24672
+      ctime4: 36623
+      ctime5: 65342
+      ctime6: 60331
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime2: 65535
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 2
+      m_NumColorKeys: 6
       m_NumAlphaKeys: 2
     numCornerVertices: 10
     numCapVertices: 5
