@@ -37,6 +37,8 @@ public class BallController : MonoBehaviour
 
     float DRAG;
 
+    PowerBallScript PowerScript;
+
     private void Start()
     {
         Rb = gameObject.GetComponent<Rigidbody>();
@@ -46,8 +48,15 @@ public class BallController : MonoBehaviour
         DataHandler = GameObject.FindGameObjectWithTag("GM").GetComponent<DataDesingHandler>();
 
 
-        if(gameObject.tag == "TargetBall") { DataHandler.UpdateTargetData(); }
-        if(gameObject.tag == "PowerBall") { DataHandler.UpdatePowerData(); }
+        if(gameObject.tag == "TargetBall")
+        {
+            DataHandler.UpdateTargetData();
+        }
+        if(gameObject.tag == "PowerBall")
+        {
+            DataHandler.UpdatePowerData();
+            PowerScript = gameObject.GetComponent<PowerBallScript>();
+        }
 
         DRAG = Rb.drag;
         Debug.Log("Initial drag: " + DRAG);
@@ -148,6 +157,9 @@ public class BallController : MonoBehaviour
 
     private void Update()
     {
+        if (GM.state == STATE.CANSHOOTPOWERBALL &&  PowerScript == null) { PowerScript = GameObject.FindGameObjectWithTag("PowerBall").GetComponent<PowerBallScript>(); }
+
+
         if (ClickedToShoot == true)
         {
             if (Input.GetMouseButton(0) && GM.state == STATE.SHOOTTARGETBALL && gameObject.tag == "TargetBall")
@@ -238,27 +250,41 @@ public class BallController : MonoBehaviour
 
 
         if (Rb.drag != DRAG || GM.state == STATE.BALLROLLING) { SlowDown(); }
-       
-        
+        if (Rb.drag != DRAG && GM.state != STATE.BALLROLLING) { Rb.velocity = new Vector3(0, 0, 0); Rb.drag = DRAG; Debug.Log("Is Drag Back? : " + Rb.drag); }
+
 
     }
 
     void SlowDown()
     {
-        if (GM.state == STATE.BALLROLLING)
-        {
+        //if (GM.state == STATE.BALLROLLING)
+        //{
             //Debug.Log("Velocity"+Rb.velocity);
-            if (Rb.velocity.x < 0.7f && Rb.velocity.y < 0.7f && Rb.velocity.z < 0.7f && Rb.velocity.x > -0.7f && Rb.velocity.y > -0.7f && Rb.velocity.z > -0.7f )
+        if (Rb.velocity.x < 0.8f && Rb.velocity.y < 0.8f && Rb.velocity.z < 0.8f && Rb.velocity.x > -0.8f && Rb.velocity.y > -0.8f && Rb.velocity.z > -0.8f )
+        {
+            if (GM.previousState == PREVIOUSSTATE.PLACEPOWERBALL || GM.previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL)
+            {
+
+                if (Rb.velocity != new Vector3(0, 0, 0) && PowerScript.power != POWER.MAGNET)
+                {
+                    Rb.drag += 0.008f;
+                    Debug.Log("Drag increasing ");
+                }
+
+            }
+            else
             {
                 Rb.drag += 0.008f;
-                //Debug.Log("Drag: " + Rb.drag);
+                Debug.Log("Drag increasing ");
             }
+                
         }
-        else
-        {
-            Rb.drag = DRAG;
-            //Debug.Log("Is Drag Back? : " + Rb.drag);
-        }
+        //}
+        //if(Rb.velocity == new Vector3(0, 0, 0))
+        //{
+        //    Rb.drag = DRAG;
+        //    Debug.Log("Is Drag Back? : " + Rb.drag);
+        //}
     }
 
 

@@ -21,7 +21,7 @@ public class GoalDetector : MonoBehaviour
         if (Ball.gameObject.tag == "PowerBall")
         {
             Destroy(Ball.gameObject);
-            GM.Lost();
+            GM.PowerInGoal();
         }
     }
 }

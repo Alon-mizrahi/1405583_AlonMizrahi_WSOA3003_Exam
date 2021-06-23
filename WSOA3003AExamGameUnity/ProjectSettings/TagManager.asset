@@ -15,6 +15,7 @@ TagManager:
   - ThroughWall
   - Teleport
   - UI_Mag
+  - LevelTracker
   layers:
   - Default
   - TransparentFX

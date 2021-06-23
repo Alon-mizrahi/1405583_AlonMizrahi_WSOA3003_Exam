@@ -49,8 +49,13 @@ public class PowerBallScript : MonoBehaviour
         Through_UI = GameObject.FindGameObjectWithTag("UI_Through");
         Mag_UI = GameObject.FindGameObjectWithTag("UI_Mag");
         Debug.Log("3");
+
         Normal_UI.GetComponent<Outline>().effectColor = Selected;
-        
+        Sticky_UI.GetComponent<Outline>().effectColor = UnSelected;
+        Through_UI.GetComponent<Outline>().effectColor = UnSelected;
+        Mag_UI.GetComponent<Outline>().effectColor = UnSelected;
+
+
         Debug.Log("4");
         if (Normal_UI.GetComponent<Image>().IsActive() == false) { Normal_UI = null; }
         if (Sticky_UI.GetComponent<Image>().IsActive() == false) { Sticky_UI = null; }
@@ -122,7 +127,7 @@ public class PowerBallScript : MonoBehaviour
         Debug.Log("Mag Ball Selected");
         power = POWER.MAGNET;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Mag;
-        ToggleThroughWalls(true);
+        ToggleThroughWalls(false);
     }
 
     void NormalBall()
@@ -131,7 +136,7 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.NORMAL;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Normal;
 
-        ToggleThroughWalls(true);
+        ToggleThroughWalls(false);
     }
 
     void StickyBall()
@@ -140,7 +145,7 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.STICKY;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Sticky;
 
-        ToggleThroughWalls(true);
+        ToggleThroughWalls(false);
     }
 
     void ThroughBall()
@@ -149,18 +154,20 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.GOTHOUGH;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Through;
 
-        ToggleThroughWalls(false);
+        ToggleThroughWalls(true);
     }
 
     //THROUGH BALL
     //pass in false to disable | pass in true to enable
-    void ToggleThroughWalls(bool isOn) 
+    void ToggleThroughWalls(bool ignore) 
     {
         GameObject[] ThroughWalls = GameObject.FindGameObjectsWithTag("ThroughWall");
 
         for(int i = 0; i < ThroughWalls.Length; i++)
         {
-            ThroughWalls[i].GetComponent<BoxCollider>().enabled = isOn;
+            //ThroughWalls[i].GetComponent<BoxCollider>().enabled = ignore;
+            //public static void IgnoreCollision(Collider collider1, Collider collider2, bool ignore = true);
+            Physics.IgnoreCollision(ThroughWalls[i].GetComponent<BoxCollider>(), this.GetComponent<SphereCollider>(), ignore);
         }
 
     }
@@ -180,7 +187,7 @@ public class PowerBallScript : MonoBehaviour
         }
     }
 
-    //STICKY BALL
+    //STICKY BALL / Toggle Magnet Ball
     private void OnCollisionEnter(Collision collision)
     {
         if (power == POWER.STICKY)
@@ -192,7 +199,32 @@ public class PowerBallScript : MonoBehaviour
                 //gameObject.GetComponent<Rigidbody>().isKinematic = false;
             }    
         }
+
+        if (power == POWER.MAGNET)
+        {
+            if (collision.gameObject.tag == "TargetBall")
+            {
+                SelectPower("NormalBall");
+            }
+        }
     }
 
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (power == POWER.MAGNET)
+        {
+            if (collision.gameObject.tag == "TargetBall")
+            {
+                SelectPower("NormalBall");
+            }
+        }
+    }
+
+
+
+
 }
+
+
+

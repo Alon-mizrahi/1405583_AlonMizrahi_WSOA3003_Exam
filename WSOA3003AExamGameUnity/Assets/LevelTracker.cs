@@ -22,7 +22,11 @@ public class LevelTracker : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+        if (SceneManager.GetActiveScene().name != "StartMenu")
+        {
+            GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+        }
+        
         Debug.Log("GotGM: " + GM);
     }
 
@@ -75,7 +79,11 @@ public class LevelTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GM.state == STATE.WON) { TrackLevels(); }
+        if (SceneManager.GetActiveScene().name != "StartMenu")
+        {
+            if(GM.state == STATE.WON) { TrackLevels(); }
+        }
+        
     }
 
 

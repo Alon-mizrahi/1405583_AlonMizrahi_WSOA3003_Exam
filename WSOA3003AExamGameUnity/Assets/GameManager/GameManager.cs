@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     public GameObject LostDisplay;
     public Text FinalLPar;
 
+    public Text LostMsg;
+    public Text LostShots;
 
     public GameObject PowerBall;
     public GameObject TargetBall;
@@ -201,17 +203,32 @@ public class GameManager : MonoBehaviour
 
 
     //if power ball should reset powerball? increment shott count
-    public void Deadzone()
+    public void Deadzone(string tag)
     {
         Debug.Log("Deadzone Activated");
+        if (tag == "TargetBall")
+        {
+            Lost();
+        }
+        else
+        {
+            shootCounter++;
+            state = STATE.PLACEPOWERBALL;
+        }
+        
+    }
+
+    public void PowerInGoal()
+    {
+        LostMsg.text = "You Sunk the Wrong Ball";
+
         Lost();
     }
 
 
-
-
     public void Lost()
     {
+        LostShots.text = "Shots: " + shootCounter;
         Time.timeScale = 0f;
         Debug.Log("Lost");
         state = STATE.LOST;

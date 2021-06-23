@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3158100972034415093}
   - component: {fileID: 3777857658859218888}
+  - component: {fileID: 8153729027635808726}
   m_Layer: 0
   m_Name: GoalDetector
   m_TagString: Untagged
@@ -44,6 +45,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8153729027635808726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721830183032680396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79f1776ba1ea284aafcef30604ee50a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6013593694370371258
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +177,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9, y: 1.9, z: 4}
+  m_Size: {x: 1.5, y: 1.5, z: 4}
   m_Center: {x: 0, y: 1.9749394e-17, z: 0.012845516}
 --- !u!114 &6207690197264162493
 MonoBehaviour:

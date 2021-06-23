@@ -25,6 +25,7 @@ public class TutorialDisplay : MonoBehaviour
 
     PowerBallScript PB;
 
+    GameObject Cam;
     //Objects to highlight when referring to them
     //public GameObject PowerBall;
     //public GameObject TargetBall;
@@ -39,11 +40,13 @@ public class TutorialDisplay : MonoBehaviour
     void Start()
     {
         GM = GameObject.FindWithTag("GM").GetComponent<GameManager>();
-
+        Cam = GameObject.FindWithTag("MainCamera");
         TutDisplay2.SetActive(false);
         TutDisplay3.SetActive(false);
-
+        Cam.GetComponent<CameraFollow>().enabled = false;
         //highlight startblock
+
+
         TutDisplay1.SetActive(true);
         TutorialText1.text = "Hi, welcome to Golf? " +
             "its like golf, kinda... ";
@@ -77,10 +80,10 @@ public class TutorialDisplay : MonoBehaviour
             TutDisplay4.SetActive(false);
             TutDisplay2.SetActive(true);
             TutorialText2.text = "You can get a lay of the course by moving your mouse to the edges of the screen";
-            
+            Cam.GetComponent<CameraFollow>().enabled = true;
         }
 
-        Vector3 camStart = new Vector3(-2, 15, -10);
+        Vector3 camStart = new Vector3(-2, 15, -7.98f);
 
         if (camPos.position.x != camStart.x || camPos.position.z != camStart.z)
         {
@@ -103,6 +106,7 @@ public class TutorialDisplay : MonoBehaviour
         //highlight goal
         //Un-highlight startblock
         TutDisplay1.SetActive(true);
+        TutDisplay1.transform.position = new Vector3(360, 840,0);
         TutorialText1.text = "Click and Drag on the Target ball to shoot it. The aim is to get this target ball into the Goal. You can only shoot this target ball once!";
         TutDisplay2.SetActive(false);
         TutDisplay3.SetActive(false);

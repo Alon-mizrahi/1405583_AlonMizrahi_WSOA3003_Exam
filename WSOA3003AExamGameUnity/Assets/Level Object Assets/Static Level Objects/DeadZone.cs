@@ -16,7 +16,7 @@ public class DeadZone : MonoBehaviour
         if (Ball.gameObject.tag == "TargetBall" || Ball.gameObject.tag == "PowerBall")
         {
             Destroy(Ball.gameObject);
-            GM.Deadzone();
+            GM.Deadzone(Ball.gameObject.tag);
         }
     }
 
