@@ -9160,8 +9160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9fa1a0d89d28af47b1acb6502c6d010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootPower: 40
-  MaxPower: 400
+  ShootPower: 30
+  MaxPower: 350
   BallMass: 0.7
   BallDrag: 0.2
   BallAngularDrag: 0.2

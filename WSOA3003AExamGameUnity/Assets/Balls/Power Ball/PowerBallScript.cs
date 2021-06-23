@@ -34,11 +34,14 @@ public class PowerBallScript : MonoBehaviour
     public Color Selected = new Color(225,225,0,225);
     public Color UnSelected = new Color(176,176,176,128);
 
-
+    BallBounce ReflectScript;
+    GameObject MagRadius;
     // Start is called before the first frame update
     void Start()
     {
+        MagRadius = GameObject.Find("MagRadius"); 
 
+        ReflectScript = gameObject.GetComponent<BallBounce>();
         Debug.Log("We made it here");
         power = POWER.NORMAL;
         Debug.Log("1");
@@ -128,6 +131,8 @@ public class PowerBallScript : MonoBehaviour
         power = POWER.MAGNET;
         gameObject.GetComponent<MeshRenderer>().material = Mat_Mag;
         ToggleThroughWalls(false);
+        ReflectScript.enabled = true;
+        MagRadius.GetComponent<MeshRenderer>().enabled = true;
     }
 
     void NormalBall()
@@ -137,6 +142,8 @@ public class PowerBallScript : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().material = Mat_Normal;
 
         ToggleThroughWalls(false);
+        ReflectScript.enabled = true;
+        MagRadius.GetComponent<MeshRenderer>().enabled = false;
     }
 
     void StickyBall()
@@ -146,6 +153,8 @@ public class PowerBallScript : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().material = Mat_Sticky;
 
         ToggleThroughWalls(false);
+        ReflectScript.enabled = false;
+        MagRadius.GetComponent<MeshRenderer>().enabled = false;
     }
 
     void ThroughBall()
@@ -155,6 +164,8 @@ public class PowerBallScript : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().material = Mat_Through;
 
         ToggleThroughWalls(true);
+        ReflectScript.enabled = true;
+        MagRadius.GetComponent<MeshRenderer>().enabled = false;
     }
 
     //THROUGH BALL
@@ -177,6 +188,8 @@ public class PowerBallScript : MonoBehaviour
     {
         if (power == POWER.MAGNET)
         {
+            MagRadius.transform.rotation = Quaternion.identity;
+
             Debug.Log(Vector3.Distance(gameObject.transform.position, Target.position));
             if (Vector3.Distance(gameObject.transform.position, Target.position) <= 6.5f)
             {
@@ -195,8 +208,9 @@ public class PowerBallScript : MonoBehaviour
             if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "ThroughWall")
             {
                 gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0f,0f,0f);
-                //gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                //gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                gameObject.transform.rotation = Quaternion.identity;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
             }    
         }
 

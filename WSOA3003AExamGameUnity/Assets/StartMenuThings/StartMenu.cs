@@ -49,5 +49,9 @@ public class StartMenu : MonoBehaviour
         Tracker.GetButtons();
     }
 
+    public void Escape()
+    {
+        Application.Quit();
+    }
 
 }

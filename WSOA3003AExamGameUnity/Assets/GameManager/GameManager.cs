@@ -18,6 +18,7 @@ public enum PREVIOUSSTATE { PLACETARGETBALL, SHOOTTARGETBALL, PLACEPOWERBALL, CA
 
 public class GameManager : MonoBehaviour
 {
+    
     public STATE state;
     public PREVIOUSSTATE previousState;
     //coruitine setup
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     Vector3 NotMoving;
     DataDesingHandler DataHandler;
     public BallOnGoal Goal;
+
 
     // Start is called before the first frame update
     void Start()
@@ -243,11 +245,34 @@ public class GameManager : MonoBehaviour
         Debug.Log("WON");
         state = STATE.WON;
         FinalShotCount.text = "Shots: " + shootCounter;
-        FinalScore.text = "poop";
+
+        SetScore();
         WonDisplay.SetActive(true);
 
     }
 
+    void SetScore()
+    {
+
+        int Score = 0;
+
+        if (shootCounter < SetPar - 4) { Score = 100; }
+        if (shootCounter > SetPar + 4) { Score = 5; }
+
+        if (shootCounter == SetPar - 4) { Score = 90; }
+        else if (shootCounter == SetPar - 3) { Score = 80; }
+        else if (shootCounter == SetPar - 2) { Score = 70; }
+        else if (shootCounter == SetPar - 1) { Score = 60; }
+        else if (shootCounter == SetPar - 0) { Score = 50; }
+        else if (shootCounter == SetPar + 1) { Score = 40; }
+        else if (shootCounter == SetPar + 2) { Score = 30; }
+        else if (shootCounter == SetPar + 3) { Score = 20; }
+        else if (shootCounter == SetPar + 4) { Score = 10; }
+
+
+
+        FinalScore.text = "Score: " + Score;
+    }
 
     //UI Button functions-----------------
 
