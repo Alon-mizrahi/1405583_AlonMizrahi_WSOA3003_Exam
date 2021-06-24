@@ -39,6 +39,7 @@ public class BallController : MonoBehaviour
 
     PowerBallScript PowerScript;
 
+
     private void Start()
     {
         Rb = gameObject.GetComponent<Rigidbody>();
@@ -129,6 +130,7 @@ public class BallController : MonoBehaviour
 
             GM.shootCounter++;
 
+
             ApplyVect = Direction * power;//make this -ve if want oposite to pull
 
             if (Direction.x * power > maxPower)
@@ -151,6 +153,12 @@ public class BallController : MonoBehaviour
             //Debug.Log("Mouse to screen world: " + Camera.main.ScreenToWorldPoint(Input.mousePosition));
             Debug.Log("Power: " + ApplyVect);
             Rb.AddForce(ApplyVect);
+
+            GM.state = STATE.BALLROLLING;
+            //change limit
+            //might need to call when ball has stopped or in power script only change if gm.state != ball rolling
+            Debug.Log("STATE: " + GM.state);
+            PowerScript.UpdatePowerLimit();
         }
     }
 
@@ -260,14 +268,14 @@ public class BallController : MonoBehaviour
         //if (GM.state == STATE.BALLROLLING)
         //{
             //Debug.Log("Velocity"+Rb.velocity);
-        if (Rb.velocity.x < 0.8f && Rb.velocity.y < 0.8f && Rb.velocity.z < 0.8f && Rb.velocity.x > -0.8f && Rb.velocity.y > -0.8f && Rb.velocity.z > -0.8f )
+        if (Rb.velocity.x < 0.9f && Rb.velocity.y < 0.9f && Rb.velocity.z < 0.9f && Rb.velocity.x > -0.9f && Rb.velocity.y > -0.9f && Rb.velocity.z > -0.9f )
         {
             if (GM.previousState == PREVIOUSSTATE.PLACEPOWERBALL || GM.previousState == PREVIOUSSTATE.CANSHOOTPOWERBALL)
             {
 
                 if (Rb.velocity != new Vector3(0, 0, 0) && PowerScript.power != POWER.MAGNET)
                 {
-                    Rb.drag += 0.008f;
+                    Rb.drag += 0.01f;
                     Debug.Log("Drag increasing ");
                 }
 

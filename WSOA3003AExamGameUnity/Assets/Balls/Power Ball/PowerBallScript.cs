@@ -36,6 +36,15 @@ public class PowerBallScript : MonoBehaviour
 
     BallBounce ReflectScript;
     GameObject MagRadius;
+
+    //power limits
+    int MagLimit;
+    int StickyLimit;
+    int ThroughLimit;
+    int Stickytxt;
+    public bool PBShot = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +81,11 @@ public class PowerBallScript : MonoBehaviour
         Debug.Log("Sticky UI: " + Sticky_UI);
 
         Debug.Log("---------------");
+
+        MagLimit = GM.MagLimit;
+        StickyLimit = GM.StickyLimit;
+        ThroughLimit = GM.ThroughLimit;
+        Stickytxt = GM.Stickytxt;
     }
 
 
@@ -89,7 +103,7 @@ public class PowerBallScript : MonoBehaviour
 
             NormalBall();
         }
-        if (PowerType == "ThroughBall")
+        if (PowerType == "ThroughBall" && ThroughLimit!= 0)
         {
             if (Normal_UI != null) { Normal_UI.GetComponent<Outline>().effectColor = UnSelected; }
             if (Sticky_UI != null) { Sticky_UI.GetComponent<Outline>().effectColor = UnSelected; }
@@ -98,7 +112,7 @@ public class PowerBallScript : MonoBehaviour
 
             ThroughBall();
         }
-        if (PowerType == "StickyBall")
+        if (PowerType == "StickyBall" && StickyLimit != 0)
         {
             //Normal_UI.GetComponent<Outline>().effectColor = UnSelected;
             //Sticky_UI.GetComponent<Outline>().effectColor = Selected;
@@ -113,7 +127,7 @@ public class PowerBallScript : MonoBehaviour
 
             StickyBall();
         }
-        if (PowerType == "MagBall")
+        if (PowerType == "MagBall" && MagLimit != 0)
         {
             if (Normal_UI != null) { Normal_UI.GetComponent<Outline>().effectColor = UnSelected; }
             if (Sticky_UI != null) { Sticky_UI.GetComponent<Outline>().effectColor = UnSelected; }
@@ -126,6 +140,7 @@ public class PowerBallScript : MonoBehaviour
 
     void MagBall()
     {
+
         Target = GameObject.FindGameObjectWithTag("TargetBall").GetComponent<Transform>();
         Debug.Log("Mag Ball Selected");
         power = POWER.MAGNET;
@@ -186,6 +201,13 @@ public class PowerBallScript : MonoBehaviour
 
     private void Update()
     {
+        
+        if (PBShot == true)
+        {
+            CheckPowerLimit();
+        }
+        
+
         if (power == POWER.MAGNET)
         {
             MagRadius.transform.rotation = Quaternion.identity;
@@ -236,7 +258,27 @@ public class PowerBallScript : MonoBehaviour
     }
 
 
+    void CheckPowerLimit()
+    {
+        if (GM.state == STATE.CANSHOOTPOWERBALL)
+        {
+            if (power == POWER.GOTHOUGH && ThroughLimit == 0) { SelectPower("NormalBall"); }
+            if (power == POWER.STICKY && StickyLimit == 0) { SelectPower("NormalBall"); }
+            if (power == POWER.MAGNET && MagLimit == 0) { SelectPower("NormalBall"); }
 
+            PBShot = false;
+        }
+    }
+
+
+    public void UpdatePowerLimit()
+    {
+        if (power == POWER.GOTHOUGH) { ThroughLimit--; GM.ThroughLimitText.text = "" + ThroughLimit; }
+        if (power == POWER.STICKY) { StickyLimit--; Stickytxt--; GM.StickyLimitText.text = "" + StickyLimit; }
+        if (power == POWER.MAGNET) { MagLimit--; GM.MagLimitText.text = "" + MagLimit; }
+        GM.state = STATE.BALLROLLING;
+        PBShot = true;
+    }
 
 }
 

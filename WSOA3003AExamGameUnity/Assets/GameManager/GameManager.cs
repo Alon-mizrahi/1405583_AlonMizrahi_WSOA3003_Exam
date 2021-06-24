@@ -66,6 +66,17 @@ public class GameManager : MonoBehaviour
     public BallOnGoal Goal;
 
 
+    //Power limiting vals
+
+    public int MagLimit;
+    public int StickyLimit;
+    public int ThroughLimit;
+
+    public Text MagLimitText;
+    public Text ThroughLimitText;
+    public Text StickyLimitText;
+    public int Stickytxt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,6 +97,12 @@ public class GameManager : MonoBehaviour
         ParDisplay.text = "Par: " + SetPar;
         FinalLPar.text = "Par: " + SetPar;
         FinalWPar.text = "Par: " + SetPar;
+
+        MagLimitText.text = ""+MagLimit;
+        ThroughLimitText.text =""+ThroughLimit;
+
+        Stickytxt = StickyLimit - 1; 
+        StickyLimitText.text =""+StickyLimit;
 
     }
 

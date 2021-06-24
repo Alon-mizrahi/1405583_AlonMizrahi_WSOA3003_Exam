@@ -105,4 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dad0aee6f2e1b24cb7f998c286fcc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridsize: {x: 1, y: 0.5, z: 1}
+  gridsize: {x: 0.5, y: 0.5, z: 0.5}

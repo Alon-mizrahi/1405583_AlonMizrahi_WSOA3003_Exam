@@ -105,7 +105,7 @@ public class CameraFollow : MonoBehaviour
 
         if (gameObject.transform.position != target.position + Offset && GM.state != STATE.BALLROLLING)
         {
-            this.transform.position += 0.1f * Direction;
+            this.transform.position += 0.3f * Direction;
 
             if (gameObject.transform.position.x > target.position.x + Offset.x - CamSnap && gameObject.transform.position.x < target.position.x + Offset.x + CamSnap && gameObject.transform.position.z > target.position.z + Offset.z - CamSnap && gameObject.transform.position.z < target.position.z + Offset.z + CamSnap)
             {
