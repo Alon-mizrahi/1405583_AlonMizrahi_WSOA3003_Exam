@@ -18,6 +18,8 @@ public class LevelTracker : MonoBehaviour
     public GameObject level5;
 
 
+    public bool ClickedSkip = false;
+
     // Start is called before the first frame update
     void Start()
     {

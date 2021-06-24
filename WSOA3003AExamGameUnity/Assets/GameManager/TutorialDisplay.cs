@@ -26,6 +26,14 @@ public class TutorialDisplay : MonoBehaviour
     PowerBallScript PB;
 
     GameObject Cam;
+
+
+    public GameObject LevelTracker;
+    public GameObject SkipBttn;
+
+    public GameObject WonDisplay;
+    public GameObject LostDisplay;
+
     //Objects to highlight when referring to them
     //public GameObject PowerBall;
     //public GameObject TargetBall;
@@ -51,16 +59,33 @@ public class TutorialDisplay : MonoBehaviour
         TutorialText1.text = "Hi, welcome to Golf? " +
             "its like golf, kinda... ";
 
+        LevelTracker = GameObject.FindGameObjectWithTag("LevelTracker");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GM.state == STATE.PLACETARGETBALL) { PlaceTargetTut(); }
-        if (GM.state == STATE.SHOOTTARGETBALL) { ShootTargetTut(); }
-        if (GM.state == STATE.PLACEPOWERBALL) { PlacePowerTut(); }
-        if (GM.state == STATE.CANSHOOTPOWERBALL){ ShootPowerTut(); }
-        if (GM.state == STATE.BALLROLLING) { RollingWait(); }
+        if (LevelTracker.GetComponent<LevelTracker>().ClickedSkip == false)
+        {
+            if (GM.state == STATE.PLACETARGETBALL) { PlaceTargetTut(); }
+            if (GM.state == STATE.SHOOTTARGETBALL) { ShootTargetTut(); }
+            if (GM.state == STATE.PLACEPOWERBALL) { PlacePowerTut(); }
+            if (GM.state == STATE.CANSHOOTPOWERBALL){ ShootPowerTut(); }
+            if (GM.state == STATE.BALLROLLING) { RollingWait(); }
+        }
+        else
+        {
+            TutDisplay1.SetActive(false);
+            TutDisplay2.SetActive(false);
+            TutDisplay3.SetActive(false);
+            TutDisplay4.SetActive(false);
+            startBlocker.SetActive(false);
+            SkipBttn.SetActive(false);
+            Cam.GetComponent<CameraFollow>().enabled = true;
+        }
+
+        if (WonDisplay.activeInHierarchy || LostDisplay.activeInHierarchy) { CleanUp(); }
+        
     }
 
     void PlaceTargetTut()
@@ -79,7 +104,7 @@ public class TutorialDisplay : MonoBehaviour
             TutDisplay3.SetActive(false);
             TutDisplay4.SetActive(false);
             TutDisplay2.SetActive(true);
-            TutorialText2.text = "You can get a lay of the course by moving your mouse to the edges of the screen";
+            TutorialText2.text = "You can get a lay of the course by moving your mouse to the edges of the screen. To reture click the Left mouse button";
             Cam.GetComponent<CameraFollow>().enabled = true;
         }
 
@@ -124,9 +149,9 @@ public class TutorialDisplay : MonoBehaviour
         PB = GameObject.FindWithTag("PowerBall").GetComponent<PowerBallScript>();
         TutDisplay1.SetActive(false);
         TutDisplay2.SetActive(true);
-        TutDisplay2.transform.position = new Vector3(230 ,198 , 0);
-        TutDisplay2.transform.localScale = new Vector3(1.5f, 1.5f, 1);
-        TutorialText2.text = "The Powerball has some abilities, click Through to select the through ball";
+        TutDisplay2.transform.position = new Vector3(300 ,350 , 0);
+        TutDisplay2.transform.localScale = new Vector3(2f, 2f, 1);
+        TutorialText2.text = "The Powerball has some abilities. The abilities can only be used the amount of times as the number above it indicates. click Through to select the through ball. ";
 
 
         if(PB.power == POWER.GOTHOUGH)
@@ -145,6 +170,27 @@ public class TutorialDisplay : MonoBehaviour
     {
         TutorialText1.text = "";
         TutDisplay1.SetActive(false);
+        //Cam.GetComponent<CameraFollow>().enabled = false;
     }
+
+
+
+
+   public void SkipTut()
+    {
+        LevelTracker.GetComponent<LevelTracker>().ClickedSkip = true;
+        SkipBttn.SetActive(false);
+        startBlocker.SetActive(false);
+    }
+
+
+    void CleanUp()
+    {
+        SkipBttn.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+
+
 
 }
