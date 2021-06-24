@@ -154,6 +154,9 @@ public class BallController : MonoBehaviour
             Debug.Log("Power: " + ApplyVect);
             Rb.AddForce(ApplyVect);
 
+            //powerball shooting done here.
+            //need to check what power value is and then decrement since shot is heppeining
+
             GM.state = STATE.BALLROLLING;
             //change limit
             //might need to call when ball has stopped or in power script only change if gm.state != ball rolling

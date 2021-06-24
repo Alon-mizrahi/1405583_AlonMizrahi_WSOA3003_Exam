@@ -1463,7 +1463,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PowerBall
       value: 
-      objectReference: {fileID: 5769412386204977569, guid: 1ce0b79f818ab9144b95227f97794d73,
+      objectReference: {fileID: 8431007581427136071, guid: 512f3b7511033684ca57253af2154a14,
         type: 3}
     - target: {fileID: 915902299499350338, guid: d3a0baa622148e644b25f5be7f91c187,
         type: 3}
@@ -4012,7 +4012,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PowerBall
       value: 
-      objectReference: {fileID: 5769412386204977569, guid: 1ce0b79f818ab9144b95227f97794d73,
+      objectReference: {fileID: 8431007581427136071, guid: 512f3b7511033684ca57253af2154a14,
         type: 3}
     - target: {fileID: 915902299499350338, guid: d3a0baa622148e644b25f5be7f91c187,
         type: 3}
@@ -4931,6 +4931,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 915902299499350338, guid: d3a0baa622148e644b25f5be7f91c187,
+        type: 3}
+      propertyPath: PowerBall
+      value: 
+      objectReference: {fileID: 8431007581427136071, guid: 512f3b7511033684ca57253af2154a14,
+        type: 3}
     - target: {fileID: 2392342659628215432, guid: d3a0baa622148e644b25f5be7f91c187,
         type: 3}
       propertyPath: m_Size.x

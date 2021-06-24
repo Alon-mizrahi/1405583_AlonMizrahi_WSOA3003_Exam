@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
     public Text MagLimitText;
     public Text ThroughLimitText;
     public Text StickyLimitText;
-    public int Stickytxt;
 
     // Start is called before the first frame update
     void Start()
@@ -98,10 +97,10 @@ public class GameManager : MonoBehaviour
         FinalLPar.text = "Par: " + SetPar;
         FinalWPar.text = "Par: " + SetPar;
 
+
+
         MagLimitText.text = ""+MagLimit;
         ThroughLimitText.text =""+ThroughLimit;
-
-        Stickytxt = StickyLimit - 1; 
         StickyLimitText.text =""+StickyLimit;
 
     }
@@ -183,7 +182,11 @@ public class GameManager : MonoBehaviour
                 //PowerBall.GetComponent<Rigidbody>().isKinematic = true;
                 state = STATE.BALLSTOPPED;
                 //TargetBall.GetComponent<Rigidbody>().isKinematic = false;
-               // PowerBall.GetComponent<Rigidbody>().isKinematic = false;
+                // PowerBall.GetComponent<Rigidbody>().isKinematic = false;
+
+
+                //PowerBall.GetComponent<PowerBallScript>().CheckPowerLimit();
+
             }
         }
 

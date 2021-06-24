@@ -41,7 +41,7 @@ public class PowerBallScript : MonoBehaviour
     int MagLimit;
     int StickyLimit;
     int ThroughLimit;
-    int Stickytxt;
+
     public bool PBShot = false;
 
 
@@ -85,7 +85,7 @@ public class PowerBallScript : MonoBehaviour
         MagLimit = GM.MagLimit;
         StickyLimit = GM.StickyLimit;
         ThroughLimit = GM.ThroughLimit;
-        Stickytxt = GM.Stickytxt;
+
     }
 
 
@@ -201,11 +201,7 @@ public class PowerBallScript : MonoBehaviour
 
     private void Update()
     {
-        
-        if (PBShot == true)
-        {
-            CheckPowerLimit();
-        }
+
         
 
         if (power == POWER.MAGNET)
@@ -221,6 +217,20 @@ public class PowerBallScript : MonoBehaviour
             }
         }
     }
+
+    private void LateUpdate()
+    {
+        //Debug.LogWarning("PB BOOL: " + PBShot);
+        //Debug.LogWarning("STATE: " + GM.state);
+
+
+        if (PBShot == true && GM.state == STATE.CANSHOOTPOWERBALL)
+        {
+            CheckPowerLimit();
+        }
+    }
+
+
 
     //STICKY BALL / Toggle Magnet Ball
     private void OnCollisionEnter(Collision collision)
@@ -258,8 +268,10 @@ public class PowerBallScript : MonoBehaviour
     }
 
 
-    void CheckPowerLimit()
+    public void CheckPowerLimit()
     {
+        Debug.Log("CHECKING LIMIT");
+        Debug.Log("STATE: "+ GM.state);
         if (GM.state == STATE.CANSHOOTPOWERBALL)
         {
             if (power == POWER.GOTHOUGH && ThroughLimit == 0) { SelectPower("NormalBall"); }
@@ -274,10 +286,11 @@ public class PowerBallScript : MonoBehaviour
     public void UpdatePowerLimit()
     {
         if (power == POWER.GOTHOUGH) { ThroughLimit--; GM.ThroughLimitText.text = "" + ThroughLimit; }
-        if (power == POWER.STICKY) { StickyLimit--; Stickytxt--; GM.StickyLimitText.text = "" + StickyLimit; }
+        if (power == POWER.STICKY) { StickyLimit--; GM.StickyLimitText.text = "" + StickyLimit; }
         if (power == POWER.MAGNET) { MagLimit--; GM.MagLimitText.text = "" + MagLimit; }
         GM.state = STATE.BALLROLLING;
         PBShot = true;
+        GM.state = STATE.BALLROLLING;
     }
 
 }

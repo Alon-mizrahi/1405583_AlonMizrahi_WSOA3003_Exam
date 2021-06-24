@@ -331,6 +331,7 @@ MonoBehaviour:
   Mat_Mag: {fileID: 2100000, guid: 670bbb1f030130f4f9e334bccb68503d, type: 2}
   Selected: {r: 225, g: 225, b: 0, a: 225}
   UnSelected: {r: 176, g: 176, b: 176, a: 128}
+  PBShot: 0
 --- !u!114 &3631502675604691847
 MonoBehaviour:
   m_ObjectHideFlags: 0
