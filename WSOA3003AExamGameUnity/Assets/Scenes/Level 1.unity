@@ -9420,13 +9420,12 @@ MonoBehaviour:
   PowerBall: {fileID: 0}
   TargetBall: {fileID: 0}
   Goal: {fileID: 0}
-  MagLimit: 2
-  StickyLimit: 2
-  ThroughLimit: 2
+  MagLimit: 0
+  StickyLimit: 0
+  ThroughLimit: 3
   MagLimitText: {fileID: 671130170}
   ThroughLimitText: {fileID: 101210020}
   StickyLimitText: {fileID: 29987656}
-  Stickytxt: 0
 --- !u!114 &2015482019
 MonoBehaviour:
   m_ObjectHideFlags: 0

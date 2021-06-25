@@ -19,7 +19,7 @@ public class StartLevelSelector : MonoBehaviour
         if (level == 2) { SceneManager.LoadScene("Level 2"); }
         if (level == 3) { SceneManager.LoadScene("Level 3"); }
         if (level == 4) { SceneManager.LoadScene("Level 4"); }
-        //if (level == 5) { SceneManager.LoadScene("Level 5"); } // dont have this yet
+        if (level == 5) { SceneManager.LoadScene("Level 5"); } // dont have this yet
     }
 
     private void Update()

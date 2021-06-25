@@ -158,7 +158,7 @@ public class TutorialDisplay : MonoBehaviour
         {
             TutDisplay2.SetActive(false);
             TutDisplay1.SetActive(true);
-            TutorialText1.text = "Click and Drag on the Power ball to shoot it. Use this power ball to help hit the target ball into the goal. You can shoot this ball multiple times";
+            TutorialText1.text = "Click and Drag on the Power ball to shoot it. Use this power ball to help hit the target ball into the goal. You can shoot this ball multiple times. If the Powerball falls off the course, you can replace it on the start block.";
 
             TutDisplay3.SetActive(true);
             TutDisplay3.transform.position = new Vector3(960, 180, 0);

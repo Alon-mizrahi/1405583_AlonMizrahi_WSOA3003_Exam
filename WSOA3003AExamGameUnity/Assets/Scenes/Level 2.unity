@@ -7667,12 +7667,11 @@ MonoBehaviour:
   TargetBall: {fileID: 0}
   Goal: {fileID: 0}
   MagLimit: 0
-  StickyLimit: 2
+  StickyLimit: 3
   ThroughLimit: 0
   MagLimitText: {fileID: 676286238}
   ThroughLimitText: {fileID: 1687632249}
   StickyLimitText: {fileID: 1353604696}
-  Stickytxt: 0
 --- !u!114 &1503824265
 MonoBehaviour:
   m_ObjectHideFlags: 0
